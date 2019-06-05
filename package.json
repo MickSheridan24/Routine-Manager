@@ -1,0 +1,23 @@
+{
+  "name": "routine-manager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MickSheridan24/Routine-Manager.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MickSheridan24/Routine-Manager/issues"
+  },
+  "homepage": "https://github.com/MickSheridan24/Routine-Manager#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "joi": "^14.3.1"
+  }
+}
