@@ -18,6 +18,10 @@
   "homepage": "https://github.com/MickSheridan24/Routine-Manager#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "joi": "^14.3.1"
+    "joi": "^14.3.1",
+    "knex": "^0.17.3",
+    "nodemon": "^1.19.1",
+    "pg": "^7.11.0",
+    "sequelize": "^5.8.7"
   }
 }
