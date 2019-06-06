@@ -8,10 +8,11 @@ class Routine {
   }
 
   static all() {
-    routines = client
+    const routines = client
       .select()
       .from("routines")
       .timeout(1000, { cancel: true });
+    return routines;
   }
 
   async save() {
