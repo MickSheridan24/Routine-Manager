@@ -7,11 +7,9 @@ class Routine {
     this.how = params.how || "I don't know, figure it out, dummy";
   }
 
-  static all() {
-    const routines = client
-      .select()
-      .from("routines")
-      .timeout(1000, { cancel: true });
+  static async all() {
+    const routines = await client.select().from("routines");
+
     return routines;
   }
 
