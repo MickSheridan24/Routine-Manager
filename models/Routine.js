@@ -9,7 +9,6 @@ class Routine {
 
   static async all() {
     const routines = await client.select().from("routines");
-
     return routines;
   }
 

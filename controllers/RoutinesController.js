@@ -5,8 +5,11 @@ const controlRoutines = app => {
     res.send("Hooray!");
   });
   app.get("/routines", (req, res) => {
-    console.log("sending routines");
     Routine.all().then(r => res.send(r));
+  });
+  app.post("/routines", (req, res) => {
+    const routine = new Routine(req.body);
+    routine.save().then(r => res.send(r));
   });
 };
 
