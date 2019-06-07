@@ -11,6 +11,15 @@ const controlRoutines = app => {
     const routine = new Routine(req.body);
     routine.save().then(r => res.send(r));
   });
+
+  app.delete("/routines/:id", (req, res) => {
+    console.log("deleting route");
+    Routine.destroy(parseInt(req.params.id)).then(r => res.sendStatus(200));
+  });
+  // app.get("/routines/:id", (req, res) => {
+  //   console.log("deleting route, but with a get route");
+  //   Routine.destroy(parseInt(req.params.id)).then(r => res.sendStatus(200));
+  // });
 };
 
 module.exports = controlRoutines;

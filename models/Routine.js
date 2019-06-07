@@ -12,6 +12,19 @@ class Routine {
     return routines;
   }
 
+  static async get(id) {
+    const routine = await client
+      .select()
+      .from("routines")
+      .where("id", id);
+    return routine;
+  }
+  static async destroy(id) {
+    return await client("routines")
+      .where("id", id)
+      .del();
+  }
+
   async save() {
     const post = await client("routines").insert({ what: this.what, why: this.why, how: this.how });
     return post;
