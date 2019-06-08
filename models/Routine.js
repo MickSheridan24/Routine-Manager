@@ -20,17 +20,17 @@ class Routine {
     return routine;
   }
   static async destroy(id) {
-    return await client("routines")
+    const deletion = await client("routines")
       .where("id", id)
-      .del();
+      .del()
+      .returning("*");
+    return deletion[0];
   }
 
   async save() {
     const post = await client("routines")
       .insert({ what: this.what, why: this.why, how: this.how })
       .returning("*");
-
-    console.log(post);
 
     return post[0];
   }
