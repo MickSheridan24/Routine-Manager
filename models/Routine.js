@@ -26,8 +26,13 @@ class Routine {
   }
 
   async save() {
-    const post = await client("routines").insert({ what: this.what, why: this.why, how: this.how });
-    return post;
+    const post = await client("routines")
+      .insert({ what: this.what, why: this.why, how: this.how })
+      .returning("*");
+
+    console.log(post);
+
+    return post[0];
   }
 }
 
