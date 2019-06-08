@@ -12,6 +12,7 @@ class User {
       .timeout(1000, { cancel: true });
     return users;
   }
+  static digest(password) {}
   async save() {
     const post = await client("users").insert({ username: this.username });
     return post;

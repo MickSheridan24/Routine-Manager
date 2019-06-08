@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
-const controlRoutines = require("./RoutinesController");
+const routineRouter = require("./RoutinesController");
+const routineValid = require("../validators/RoutineValidator");
 const controlUsers = require("./UsersController");
 const isLoggedIn = require("./AuthenticationController");
 
@@ -11,7 +12,8 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE");
   next();
 });
-app.use((req, res, next) => isLoggedIn(req, res, next));
 
-controlRoutines(app);
+app.use("/routines", isLoggedIn, routineValid, routineRouter);
+//app.use((req, res, next) => isLoggedIn(req, res, next));
+
 module.exports = app;

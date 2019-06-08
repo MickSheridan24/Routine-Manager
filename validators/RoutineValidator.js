@@ -15,4 +15,18 @@ const schema = {
     .required(),
 };
 
-module.exports = schema;
+const isValid = (req, res, next) => {
+  if (req.method === "POST") {
+    const validationResult = Joi.validate(req.body);
+    if (validationResult.error) {
+      res
+        .status(400)
+        .send({ success: false, message: valid.error.details[0].message })
+        .end();
+    } else {
+      next();
+    }
+  }
+};
+
+module.exports = isValid;
