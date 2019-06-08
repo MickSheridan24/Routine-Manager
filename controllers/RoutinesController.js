@@ -1,4 +1,6 @@
 const Routine = require("../models/Routine");
+const schema = require("../validators/RoutineValidator");
+const Joi = require("joi");
 
 const controlRoutines = app => {
   app.get("/", (req, res) => {
@@ -8,12 +10,16 @@ const controlRoutines = app => {
     Routine.all().then(r => res.send(r));
   });
   app.post("/routines", async (req, res) => {
-    const routine = await new Routine(req.body).save();
-
-    if (routine.id) {
-      res.send({ success: true, routine: routine });
+    const valid = Joi.validate(req.body, schema);
+    if (!valid.error) {
+      const routine = await new Routine(req.body).save();
+      if (routine.id) {
+        res.send({ success: true, routine: routine });
+      } else {
+        res.status(400).send({ success: false, message: "Server was unable to process request" });
+      }
     } else {
-      res.send({ success: false });
+      res.status(400).send({ success: false, message: valid.error.details[0].message });
     }
   });
 
@@ -23,7 +29,7 @@ const controlRoutines = app => {
     if (routine.id) {
       res.send({ success: true });
     } else {
-      res.send({ success: false });
+      res.status(400).send({ success: false, message: "Server was unable to delete" });
     }
   });
 };
