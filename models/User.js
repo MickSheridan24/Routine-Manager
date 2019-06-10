@@ -3,8 +3,9 @@ const bcrypt = require("bcrypt");
 
 class User {
   constructor(args) {
+    console.log("USER CONSTRUCTOR", args);
     this.username = args.username;
-    User.digest(args.password);
+    this.password = args.password;
   }
 
   static all() {
@@ -14,20 +15,41 @@ class User {
       .timeout(1000, { cancel: true });
     return users;
   }
-  static digest(password) {
-    const saltRounds = 8;
-    bcrypt.genSalt(saltRounds, function(err, salt) {
-      bcrypt.hash(password, salt, function(err, hash) {
+  static async digest(password) {
+    const hash = await bcrypt.genSalt(saltRounds, (err, salt) => {
+      console.log(salt);
+      bcrypt.hash(password, salt, (err, hash) => {
         console.log(hash);
-        this.passwordDigest = hash;
+        return hash;
       });
     });
+    console.log("made hash", hash);
+    return hash;
   }
 
-  static login({ username, password }) {}
+  static async login({ username, password }) {
+    console.log("Model login", username, password);
+    const user = await client
+      .select()
+      .from("users")
+      .where({ username: username })[0];
+    console.log(user);
+    if (user) {
+      const check = await bcrypt.compare(password, user.passwordDigest, (err, res) => {
+        console.log("Status", check);
+        return check;
+      });
+    }
+  }
 
   async save() {
-    const post = await client("users").insert({ username: this.username });
+    const saltRounds = 8;
+    let post = {};
+    await bcrypt.genSalt(saltRounds, async (err, salt) => {
+      await bcrypt.hash(this.password, salt, async (err, hash) => {
+        post = await client("users").insert({ username: this.username, passwordDigest: hash });
+      });
+    });
     return post;
   }
 }
