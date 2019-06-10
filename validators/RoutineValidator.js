@@ -21,7 +21,7 @@ const isValid = (req, res, next) => {
     if (validationResult.error) {
       res
         .status(400)
-        .send({ success: false, message: valid.error.details[0].message })
+        .send({ success: false, message: validationResult.error.details[0].message })
         .end();
     } else {
       next();

@@ -17,12 +17,15 @@ class User {
   static digest(password) {
     const saltRounds = 8;
     bcrypt.genSalt(saltRounds, function(err, salt) {
-      bcrypt.hash(myPlaintextPassword, salt, function(err, hash) {
+      bcrypt.hash(password, salt, function(err, hash) {
         console.log(hash);
         this.passwordDigest = hash;
       });
     });
   }
+
+  static login({ username, password }) {}
+
   async save() {
     const post = await client("users").insert({ username: this.username });
     return post;

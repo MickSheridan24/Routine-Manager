@@ -15,6 +15,6 @@ app.use(function(req, res, next) {
 });
 
 app.use("/routines", isLoggedIn, routineValid, routineRouter);
-app.use("/users", isLoggedIn, userValid, userRouter);
+app.use("/users", isLoggedIn, userRouter);
 
 module.exports = app;
