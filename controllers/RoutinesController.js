@@ -2,7 +2,7 @@ const Routine = require("../models/Routine");
 const router = require("express").Router();
 
 router.get("/", (req, res) => {
-  Routine.all().then(r => res.send(r));
+  Routine.all().then(r => res.send({ success: true, routines: r }));
 });
 router.post("/", async (req, res) => {
   const routine = await new Routine(req.body).save();
