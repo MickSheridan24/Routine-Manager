@@ -1,4 +1,7 @@
 const User = require("../models/User");
+const jwt = require("jsonwebtoken");
+const secret = require("../secrets").jwtSecret;
+
 const router = require("express").Router();
 
 router.post("/", async (req, res) => {
@@ -8,8 +11,13 @@ router.post("/", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-  const status = await User.login(req.body);
-  res.send({ success: status });
+  const id = await User.login(req.body);
+  if (id) {
+    const token = jwt.sign({ id: id }, secret);
+    res.send({ success: true, token: token });
+  } else {
+    res.send({ success: false });
+  }
 });
 
 module.exports = router;

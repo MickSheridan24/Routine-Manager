@@ -15,7 +15,6 @@ router.post("/", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   const routine = await Routine.destroy(parseInt(req.params.id));
-  console.log(routine);
   if (routine.id) {
     res.send({ success: true });
   } else {

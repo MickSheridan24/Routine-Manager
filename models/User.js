@@ -31,7 +31,11 @@ class User {
     const user = query[0];
     if (user) {
       const match = await bcrypt.compare(password, user.passwordDigest);
-      return match;
+      if (match) {
+        return user.id;
+      } else {
+        return false;
+      }
     } else {
       return false;
     }
