@@ -2,7 +2,8 @@ const express = require("express");
 const app = express();
 const routineRouter = require("./RoutinesController");
 const routineValid = require("../validators/RoutineValidator");
-const controlUsers = require("./UsersController");
+const userRouter = require("./UsersController");
+const userValid = require("../validators/UserValidator");
 const isLoggedIn = require("./AuthenticationController");
 
 app.use(express.json());
@@ -14,6 +15,6 @@ app.use(function(req, res, next) {
 });
 
 app.use("/routines", isLoggedIn, routineValid, routineRouter);
-//app.use((req, res, next) => isLoggedIn(req, res, next));
+app.use("/users", isLoggedIn, userValid, userRouter);
 
 module.exports = app;

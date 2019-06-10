@@ -1,10 +1,8 @@
 const User = require("../models/User");
-const schema = require("../validators/RoutineValidator");
-const Joi = require("joi");
+const router = require("express").Router();
 
-const controlUsers = app => {
-  app.post("/users", async (req, res) => {
-    const digest = User.digest(req.body.password);
-    const user = new User(req.body);
-  });
-};
+router.post("/users", async (req, res) => {
+  const user = new User(req.body);
+});
+
+module.exports = router;

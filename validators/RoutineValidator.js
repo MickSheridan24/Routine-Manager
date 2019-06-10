@@ -17,7 +17,7 @@ const schema = {
 
 const isValid = (req, res, next) => {
   if (req.method === "POST") {
-    const validationResult = Joi.validate(req.body);
+    const validationResult = Joi.validate(req.body, schema);
     if (validationResult.error) {
       res
         .status(400)
@@ -26,6 +26,8 @@ const isValid = (req, res, next) => {
     } else {
       next();
     }
+  } else {
+    next();
   }
 };
 
