@@ -7,7 +7,7 @@ const router = require("express").Router();
 router.post("/", async (req, res) => {
   const user = await new User(req.body.username);
   user.save(req.body.password);
-  res.send(user);
+  res.send({ success: true, user: user });
 });
 
 router.post("/login", async (req, res) => {

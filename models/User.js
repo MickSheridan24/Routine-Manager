@@ -13,6 +13,15 @@ class User {
       .timeout(1000, { cancel: true });
     return users;
   }
+
+  static async isUnique(username) {
+    const users = await client
+      .select()
+      .from("users")
+      .where("username", username);
+    console.log(users);
+    return users.length === 0;
+  }
   static async digest(password) {
     const hash = await bcrypt.genSalt(saltRounds, (err, salt) => {
       bcrypt.hash(password, salt, (err, hash) => {
