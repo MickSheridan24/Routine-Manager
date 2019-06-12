@@ -14,6 +14,6 @@ app.use("/", function(req, res, next) {
 });
 
 app.use("/routines", isLoggedIn, validators.routine, routers.routines);
-app.use("/users", validators.user, routers.users);
+app.use("/users", routers.users);
 
 module.exports = app;

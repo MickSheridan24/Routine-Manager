@@ -1,10 +1,10 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const secret = require("../secrets").jwtSecret;
-
+const signUpValidator = require("../validators/index").user;
 const router = require("express").Router();
 
-router.post("/", async (req, res) => {
+router.post("/", signUpValidator, async (req, res) => {
   const user = await new User(req.body.username);
   user.save(req.body.password);
   res.send({ success: true, user: user });
