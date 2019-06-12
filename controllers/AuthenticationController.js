@@ -6,7 +6,7 @@ function isLoggedIn(req, resp, next) {
   if (req.headers.authorization) {
     const decoded = jwt.verify(req.headers.authorization, secret);
     if (decoded) {
-      req.userId = decoded;
+      req.userId = decoded.id;
       next();
     } else {
       resp.send({ success: false, message: "User is not Logged In" }).end();
